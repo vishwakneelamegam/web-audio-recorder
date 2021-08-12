@@ -3,9 +3,8 @@
 <script>
 let audioIN = { audio: true };
 navigator.mediaDevices.getUserMedia(audioIN).then(function (mediaStreamObj) {
-let audio = document.querySelector('audio');
-let start = document.getElementById('btnStart');
-let playAudio = document.getElementById('adioPlay');
+let start = document.getElementById('record');
+let playAudio = document.getElementById('play');
 let mediaRecorder = new MediaRecorder(mediaStreamObj);
 let dataArray = [];
 start.addEventListener('click', function (ev) {
@@ -28,8 +27,8 @@ console.log(err.name, err.message);
 </script>
 </head>
 <body>
-<button id="btnStart">Record</button>
+<button id="record">Record</button>
 </br></br>
-<audio id="adioPlay" controls></audio>
+<audio id="play" controls></audio>
 </body>
 </html>
