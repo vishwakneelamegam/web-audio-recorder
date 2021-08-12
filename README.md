@@ -1,5 +1,5 @@
 # web-audio-recorder
-Used to record audio in web
+Used to record audio in web and upload to server.
 ## instruction
 Add ssl certificate while running.  It will not work without ssl certificate.  To test use ngrok.
 ## reference
