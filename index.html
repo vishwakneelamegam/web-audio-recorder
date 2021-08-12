@@ -1,34 +1,40 @@
 <html>
 <head>
 <script>
+const sendAudioFile = file => {
+const formData = new FormData();
+formData.append('files',file,"test-audio-v1.wav");
+return fetch('https://ce98209f2983.ngrok.io/process', {
+method: 'POST',
+body: formData
+});
+};
+
 let audioIN = { audio: true };
 navigator.mediaDevices.getUserMedia(audioIN).then(function (mediaStreamObj) {
-let start = document.getElementById('record');
-let playAudio = document.getElementById('play');
+let start = document.getElementById('btnStart');
 let mediaRecorder = new MediaRecorder(mediaStreamObj);
 let dataArray = [];
 start.addEventListener('click', function (ev) {
 mediaRecorder.start();
 setTimeout(()=>{
 mediaRecorder.stop();
-},5000);
+},10000);
 })
 mediaRecorder.ondataavailable = function (ev) {
 dataArray.push(ev.data);
 }
 mediaRecorder.onstop = function (ev) {
-let audioData = new Blob(dataArray,{ 'type': 'audio/wav;' });
+var audioData = new Blob(dataArray,{ 'type': 'audio/wav;' });
+sendAudioFile(audioData);
 dataArray = [];
-let audioSrc = window.URL.createObjectURL(audioData);
-playAudio.src = audioSrc;}})
+}})
 .catch(function (err) {
 console.log(err.name, err.message);
 });
 </script>
 </head>
 <body>
-<button id="record">Record</button>
-</br></br>
-<audio id="play" controls></audio>
+<button id="btnStart">Record</button>
 </body>
 </html>
